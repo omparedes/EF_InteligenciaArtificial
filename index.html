@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#102a43">
+    <meta
+      name="description"
+      content="TurnoFácil: gestión sencilla de turnos de atención."
+    >
+    <title>TurnoFácil | Gestión de turnos</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-content">
+        <a class="brand" href="./" aria-label="TurnoFácil, inicio">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <span>Turno<span class="brand-accent">Fácil</span></span>
+        </a>
+        <p class="header-caption">Gestión de atención</p>
+      </div>
+    </header>
+
+    <main id="turnos-app" class="page-container">
+      <section class="page-intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Panel de control</p>
+          <h1 id="page-title">Gestión de turnos</h1>
+          <p class="intro-copy">
+            Organiza la atención de tus clientes en un solo lugar.
+          </p>
+        </div>
+        <span class="demo-badge">Gestión de turnos</span>
+      </section>
+      <p id="app-message" class="app-message" role="status" aria-live="polite" hidden></p>
+
+      <section class="metrics-grid" aria-label="Resumen de turnos">
+        <article class="metric-card">
+          <p class="metric-label">Pendientes</p>
+          <p id="stat-pending" class="metric-value" aria-live="polite">—</p>
+        </article>
+        <article class="metric-card metric-card-active">
+          <p class="metric-label">En atención</p>
+          <p id="stat-attending" class="metric-value" aria-live="polite">—</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-label">Completados</p>
+          <p id="stat-completed" class="metric-value" aria-live="polite">—</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-label">Cancelados</p>
+          <p id="stat-cancelled" class="metric-value" aria-live="polite">—</p>
+        </article>
+      </section>
+
+      <div class="dashboard-grid">
+        <section class="panel registration-panel" aria-labelledby="registration-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Nuevo cliente</p>
+              <h2 id="registration-title">Registrar turno</h2>
+            </div>
+            <span class="heading-icon" aria-hidden="true">+</span>
+          </div>
+          <form id="turn-form">
+            <label for="client-name">Nombre del cliente</label>
+            <input
+              id="client-name"
+              name="clientName"
+              type="text"
+              autocomplete="name"
+              placeholder="Escribe el nombre"
+              required
+            >
+            <p class="field-hint">El número de turno se asignará al registrar.</p>
+            <button class="button button-primary" type="submit" id="register-turn">
+              Registrar turno
+            </button>
+          </form>
+        </section>
+
+        <section class="panel current-panel" aria-labelledby="current-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Atención actual</p>
+              <h2 id="current-title">Turno en atención</h2>
+            </div>
+            <span class="status-dot" aria-hidden="true"></span>
+          </div>
+          <div id="current-turn" class="empty-state" aria-live="polite">
+            <span class="empty-icon" aria-hidden="true">—</span>
+            <p class="empty-title">Sin turno en atención</p>
+            <p>El turno actual aparecerá aquí.</p>
+          </div>
+          <button class="button button-secondary" type="button" id="call-next-turn">
+            Iniciar siguiente turno
+          </button>
+        </section>
+
+        <section class="panel queue-panel" aria-labelledby="queue-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Orden de llegada</p>
+              <h2 id="queue-title">Turnos pendientes</h2>
+            </div>
+            <span id="pending-count" class="count-badge" aria-label="Cantidad de turnos pendientes">—</span>
+          </div>
+          <ul id="pending-list" class="turn-list" aria-live="polite">
+            <li class="empty-state list-empty">
+              <p class="empty-title">Aún no hay turnos pendientes</p>
+              <p>Los nuevos turnos se mostrarán en esta lista.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="panel history-panel" aria-labelledby="history-title">
+          <div class="panel-heading history-heading">
+            <div>
+              <p class="eyebrow">Registro de actividad</p>
+              <h2 id="history-title">Historial de turnos</h2>
+            </div>
+          </div>
+          <form id="history-filters" class="history-filters" role="search">
+            <div class="search-field">
+              <label class="visually-hidden" for="history-search">Buscar por nombre o número de turno</label>
+              <input
+                id="history-search"
+                name="search"
+                type="search"
+                placeholder="Buscar por nombre o turno"
+              >
+            </div>
+            <div class="filter-field">
+              <label class="visually-hidden" for="history-status-filter">Filtrar por estado</label>
+              <select id="history-status-filter" name="status">
+                <option value="">Todos los estados</option>
+                <option value="pending">Pendiente</option>
+                <option value="attending">En atención</option>
+                <option value="completed">Completado</option>
+                <option value="cancelled">Cancelado</option>
+              </select>
+            </div>
+          </form>
+          <ul id="history-list" class="turn-list history-list" aria-live="polite">
+            <li class="empty-state list-empty">
+              <p class="empty-title">Todavía no hay registros</p>
+              <p>El historial conservará los turnos cuando se implemente la gestión.</p>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>TurnoFácil <span aria-hidden="true">·</span> Gestión simple, atención ordenada</p>
+    </footer>
+  </body>
+</html>
